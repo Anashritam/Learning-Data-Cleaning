@@ -1,0 +1,11 @@
+name,email,age,salary
+Alice,alice@example.com,25,50000
+ Bob ,BOB@EXAMPLE.COM,31,60000
+Charlie,,29,55000
+Alice,alice@example.com,25,50000
+David,david@example.com,,70000
+Eve,eve@example.com,twenty,45000
+Frank,frank@example.com,40,high
+,missing@example.com,35,65000
+ Grace   ,  GRACE@TEST.COM  , 28 , 48000
+Bob,bob@example.com,31,60000

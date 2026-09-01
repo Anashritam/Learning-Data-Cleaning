@@ -1,5 +1,5 @@
 import pandas as pd
-def clean_data(df: pd.DataFrame)-> tuple[pd.DataFrame, list[str]];
+def clean_data(df: pd.DataFrame)-> tuple[pd.DataFrame, list[str]]:
     logs=[]
 
     df_clean=df.copy()
@@ -46,4 +46,30 @@ def clean_data(df: pd.DataFrame)-> tuple[pd.DataFrame, list[str]];
         missing_count =df_clean[col].isna().sum()
         if missing_count > 0:
             col_mean = df_clean[col].mean()
+
+            if pd.isna(col_mean):
+                col_mean=0.0
+
+            df_clean[col]=df_clean[col].fillna(col_mean)
+            logs.append(f"Imputed {missing_count} missing value(s) in {col} with column mean: {col_mean:.2f}.")
+
+    #------------------------------------
+    # 5. Remove Exact Duplicates
+    #------------------------------------
+
+    df_clean = df_clean.drop_duplicates().reset_index(drop = True)
+
+    duplicates_removed = initial_row_count -len(df_clean)
+    if duplicates_removed > 0:
+        logs.append(f"Removed {duplicates_removed} exact duplicate row(s) post-normalization.")
+    else:
+        logs.append("No duplicate rows found post-normalization.")
+
+    #--------------------------------------------
+    # 6. Validation Handoff Note
+    #--------------------------------------------
+
+    logs.append("Cleaning complete. Required field validation (name/email) deferred to validatior.py.")
+
+    return df_clean.logs
             

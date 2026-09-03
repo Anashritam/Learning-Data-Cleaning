@@ -47,7 +47,7 @@ def validate_data(df: pd.DataFrame) -> ValidationResult:
     #==========================================
 
     email_missing = df_val['email'].isna()|(df_val['email'].str.strip()=='')
-    df_val.loc[email_missing,'_validation_errors']+="missing required field 'name';"
+    df_val.loc[email_missing,'_validation_errors']+="missing required field 'email';"
 
     #Basic Regex:
     email_regex = r"^[^@\s]+@[^@\s]+\.[^@\s]+$"
@@ -64,7 +64,7 @@ def validate_data(df: pd.DataFrame) -> ValidationResult:
         df_val.loc[age_missing,'_validation_errors']+="missing 'age' value;"
 
         age_out_of_bounds = (df_val['age']<18)|(df_val['age']>100)
-        df_val.loc[age_out_of_bounds,'_validattion_errors'] +="age out of reasonable bounds(18-100);"
+        df_val.loc[age_out_of_bounds,'_validation_errors'] +="age out of reasonable bounds(18-100);"
 
         if 'age_was_imputed' in df_val.columns:
             imputed_count = df_val['age_was_imputed'].sum()
